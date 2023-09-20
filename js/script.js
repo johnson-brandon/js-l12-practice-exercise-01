@@ -1,7 +1,9 @@
+const selectUserNumber=document.querySelector("select#users");
 const randomFolks = document.querySelector(".random-peeps");
+// console.log(selectUserNumber);
 
-const getData= async function(){
-    const userRequest= await fetch("https://randomuser.me/api?results=5");
+const getData= async function(numUsers){
+    const userRequest= await fetch(`https://randomuser.me/api?results=${numUsers}`);
     const data= await userRequest.json();
     //console.log(data);
 
@@ -10,7 +12,7 @@ const getData= async function(){
 
     displayUsers(userResults);
 };
-getData();
+getData(1);
 
 const displayUsers= function(userResults) {
     randomFolks.innerHTML="";
@@ -27,4 +29,9 @@ const displayUsers= function(userResults) {
             `;
         randomFolks.append(userDiv);
     }
-}
+};
+// THERE IS SOMETHING WRONG IN THIS FUNCTION. 9/18/23 @ 2000 HOURS
+selectUserNumber.addEventListener("change", function(e){
+    let numUsers=e.target.value;
+    getData(numUsers);
+});
